@@ -8,7 +8,8 @@ const String apiSecret = 'API_SECRET';
 void main() {
   test('access token test with options and grants', () {
     final accessToken = AccessToken(apiKey, apiSecret,
-        options: AccessTokenOptions(identity: 'identity', ttl: 1000),
+        options: AccessTokenOptions(
+            identity: 'identity', ttl: Duration(seconds: 1000)),
         grants:
             ClaimGrants(name: 'name', metadata: 'metadata', sha256: 'sha256'));
     expect(accessToken.apiKey, apiKey);
@@ -17,12 +18,11 @@ void main() {
     expect(accessToken.grants!.metadata, 'metadata');
     expect(accessToken.grants!.sha256, 'sha256');
     expect(accessToken.identity, 'identity');
-    expect(accessToken.ttl, 1000);
+    expect(accessToken.ttl!.inSeconds, 1000);
   });
 
   test('encoded tokens are valid', () {
     final accessToken = AccessToken(apiKey, apiSecret,
-        options: AccessTokenOptions(identity: 'identity', ttl: 1000),
         grants: ClaimGrants(
             name: 'name',
             metadata: 'metadata',

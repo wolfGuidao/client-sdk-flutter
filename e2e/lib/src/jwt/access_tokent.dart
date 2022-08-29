@@ -2,13 +2,13 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'grants.dart' show ClaimGrants, VideoGrant;
 
 // 6 hours
-const int defaultTTL = 6 * 60 * 60;
+const Duration defaultTTL = Duration(seconds: 6 * 60 * 60);
 
 class AccessTokenOptions {
   ///  amount of time before expiration
   ///  expressed in seconds or a string describing a time span zeit/ms.
   ///  eg: '2 days', '10h', or seconds as numeric value
-  dynamic ttl;
+  Duration? ttl;
 
   /// display name for the participant, available as `Participant.name`
   String? name;
@@ -27,7 +27,7 @@ class AccessToken {
   String apiSecret;
   ClaimGrants? grants;
   String? identity;
-  dynamic ttl;
+  Duration? ttl;
   AccessTokenOptions? options;
 
   AccessToken(this.apiKey, this.apiSecret,
@@ -85,7 +85,7 @@ class AccessToken {
     /// Sign it (default with HS256 algorithm)
     final token = jwt.sign(SecretKey(this.apiSecret),
         notBefore: Duration(seconds: 0),
-        expiresIn: Duration(seconds: this.ttl));
+        expiresIn: this.ttl!.inSeconds > 0 ? this.ttl : defaultTTL);
 
     //print('Signed token: $token\n');
 
