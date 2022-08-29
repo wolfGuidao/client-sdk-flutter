@@ -18,6 +18,8 @@ class AccessTokenOptions {
 
   /// custom metadata to be passed to participants
   String? metadata;
+
+  AccessTokenOptions({this.ttl, this.name, this.identity, this.metadata});
 }
 
 class AccessToken {
@@ -78,12 +80,19 @@ class AccessToken {
       jwtId: this.identity,
     );
 
+    if (this.identity != null) {
+      jwt.subject = this.identity;
+      jwt.jwtId = this.identity;
+    } else if (grants?.video?.roomJoin == true) {
+      throw Exception('identity is required for join but not set');
+    }
+
     /// Sign it (default with HS256 algorithm)
     final token = jwt.sign(SecretKey(this.apiSecret),
         notBefore: Duration(seconds: 0),
         expiresIn: Duration(seconds: this.ttl));
 
-    print('Signed token: $token\n');
+    //print('Signed token: $token\n');
 
     return token;
   }
@@ -99,7 +108,7 @@ class TokenVerifier {
       final jwt =
           JWT.verify(token, SecretKey(this.apiSecret), issuer: this.apiKey);
 
-      print('Payload: ${jwt.payload}');
+      //print('Payload: ${jwt.payload}');
 
       Map<String, dynamic> decoded = jwt.payload as Map<String, dynamic>;
       return ClaimGrants.fromJson(decoded);
