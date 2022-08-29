@@ -45,17 +45,12 @@ class AccessToken {
     }
   }
 
-  /**
-   * Adds a video grant to this token.
-   * @param grant
-   */
+  /// Adds a video grant to this token.
   void addGrant(VideoGrant grant) {
     this.grants!.video = grant;
   }
 
-  /**
-   * Set metadata to be passed to the Participant, used only when joining the room
-   */
+  /// Set metadata to be passed to the Participant, used only when joining the room
   set metadata(String? md) {
     this.grants?.metadata = md;
   }
