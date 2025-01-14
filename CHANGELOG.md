@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## 2.3.5
+
+* feat: add TrackProcessor support. (#657)
+* fix: bug for mute/unmute and speaker switch. (#684)
+
+## 2.3.4+hotfix.2
+
+* fix: side effects for stop remote track.
+
+## 2.3.4+hotfix.1
+
+* fix: bug for speakerPhone switch. (#672)
+
+## 2.3.4
+
+* fix bypass voice processing not work. (#668)
+* fix track.stop for remote track. (#669)
+* fix Visualizer block UI. (#667)
+
+## 2.3.3
+
+* Support FocusMode/ExposureMode for camera capture options. (#658)
+* Fix Swift compilation errors (#662)
+* Improve reconnect logic. (#654)
+* Fixed bug for Screen Share on iOS/Android.
+
+## 2.3.2
+
+* Add support for audio visualizer.
+
+## 2.3.1+hotfix.1
+
+* Fix version mismatch for CocoaPods (#648)
+* Android AGP upgrade (#649)
+
 ## 2.3.0
 
 * fix: Fixed speaker cannot be switched on iOS. (#617)
